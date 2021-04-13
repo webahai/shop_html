@@ -1,0 +1,18 @@
+.leftNav {
+  min-height: 100vh;
+}
+.leftNav .logo {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+.leftNav .logo img {
+  height: 100%;
+  margin-right: 6px;
+}
+.leftNav .logo h3 {
+  color: #c5ccc3;
+  font-size: 29px ;
+  margin-bottom: 0;
+}
