@@ -157,10 +157,9 @@ export default class Addupdate extends Component {
             let { name, url } = result
             file.name = name
             file.url = url
-
             //删除图片
         } else if (file.status === "removed") {
-            let name = file.response.name
+            let name = file.name
             reqdelateshop(name)
                 .then((result) => {
                     message.success(result.message)
@@ -257,7 +256,7 @@ export default class Addupdate extends Component {
                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
                 <div style={{ marginTop: 8 }}>上传图片</div>
             </div>
-        );
+        )
         return (
             <Card
                 title={this.title} className='addupdate' >

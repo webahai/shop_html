@@ -35,17 +35,17 @@ const menuList = [
         icon: 'ToolOutlined'
     },
     {
-        title: '设置',
+        title: '可视化图表',
         key: '/set',
-        icon: 'TeamOutlined',
+        icon: 'AreaChartOutlined',
         children: [
             {
-                title: '数据统计',
+                title: '柱状图',
                 key: '/count',
                 icon: 'AreaChartOutlined'
             },
             {
-                title: '用户设置',
+                title: '饼状图',
                 key: '/setting',
                 icon: 'SettingOutlined'
             }

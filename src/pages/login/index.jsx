@@ -12,40 +12,40 @@ import { memory, storage } from '../../tool/storage'
 
 
 export default class Login extends Component {
+    //用户登录
+   onFinish = async (values) => {
+        if (!values) {
+            message.error('没有填写账号密码')
+        }
+        // console.log('收到数据，开始发生axios请求')
+        let response = await reqlogon(values)
+
+        if (response.status === 0) {
+            //登录成功，跳转admin页面
+            message.success('登录成功')
+            //缓存登录状态
+            storage.saveUser(response.data)
+
+            //发送请求，缓存当前账户权限
+            let _id=response.data.role_id
+            let {data}=await reqrole(_id)
+            storage.saveUser(data,'role_key')
+            
+            // 跳转admin页面
+            this.props.history.go('/home')
+
+        } else if (response.status === 1) {
+            //登录失败，提示用户登录错误
+            message.error('登录失败,请检查当前账户密码是否正确')
+        }
+    }
     render() {
         // 判断用户是否登录
         let user = memory.user
         if (user._id) {
-            return <Redirect to='/admin' />
+            return <Redirect to='/home' />
         }
-
-        //用户登录
-        const onFinish = async (values) => {
-            if (!values) {
-                message.error('没有填写账号密码')
-            }
-            // console.log('收到数据，开始发生axios请求')
-            let response = await reqlogon(values)
-
-            if (response.status === 0) {
-                //登录成功，跳转admin页面
-                message.success('登录成功')
-                //缓存登录状态
-                storage.saveUser(response.data)
-
-                //发送请求，缓存当前账户权限
-                let _id=response.data.role_id
-                let {data}=await reqrole(_id)
-                storage.saveUser(data,'role_key')
-                
-                // 跳转admin页面
-                this.props.history.go('/admin')
-
-            } else if (response.status === 1) {
-                //登录失败，提示用户登录错误
-                message.error('登录失败,请检查当前账户密码是否正确')
-            }
-        }
+        
         return (
             <div className='login'>
                 <header className='login-header'>
@@ -58,7 +58,7 @@ export default class Login extends Component {
                         initialValues={{
                             remember: true,
                         }}
-                        onFinish={onFinish}>
+                        onFinish={this.onFinish}>
                         <Form.Item
                             name="username"
                             rules={[
